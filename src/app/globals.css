@@ -1,0 +1,315 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Typeface — DIN Next Arabic
+   The family carries Latin, Arabic and numeral coverage in one file, so both
+   site languages share a single typeface. Weights are declared against the
+   same family name; the browser picks by weight.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'DIN Next Arabic';
+  src: url('/fonts/DINNextArabic-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DIN Next Arabic';
+  src: url('/fonts/DINNextArabic-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DIN Next Arabic';
+  src: url('/fonts/DINNextArabic-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DIN Next Arabic';
+  src: url('/fonts/DINNextArabic-Heavy.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Design tokens
+   ─────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --font-body: 'DIN Next Arabic', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  --font-display: 'DIN Next Arabic', ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: 'DIN Next Arabic', 'Segoe UI', Tahoma, sans-serif;
+
+  --deep-space: #020e1a;
+  --midnight: #061b2d;
+  --luma-blue: #16496e;
+  --steel: #7892ad;
+  --starlight: #f5f7fa;
+  --gold: #e8b95c;
+
+  --shell: 80rem;
+  --nav-h: 4.5rem;
+
+  /* Set to 1 by <MotionGate> when the visitor has not asked for reduced
+     motion. Heavy effects multiply their amplitude by this value. */
+  --motion: 1;
+}
+
+@layer base {
+  * {
+    @apply border-white/5;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 1rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-space text-starlight antialiased;
+    font-family: var(--font-body);
+    font-weight: 400;
+    /* The cosmos: a deep navy field with two soft light sources, one warm
+       (the LUMA star) and one cool. Painted once on <body> so every section
+       floats over a continuous sky rather than a repeating tile. */
+    background-color: var(--deep-space);
+    background-image:
+      radial-gradient(
+        60rem 45rem at 78% -8%,
+        rgba(232, 185, 92, 0.1),
+        transparent 62%
+      ),
+      radial-gradient(
+        70rem 55rem at 8% 12%,
+        rgba(22, 73, 110, 0.34),
+        transparent 60%
+      ),
+      radial-gradient(
+        90rem 70rem at 50% 108%,
+        rgba(10, 39, 64, 0.55),
+        transparent 68%
+      );
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  /* Arabic runs slightly larger and looser: DIN Next Arabic has a smaller
+     apparent x-height than its Latin counterpart at the same size. */
+  html[lang='ar'] body {
+    font-size: 1.03em;
+    line-height: 1.85;
+  }
+
+  html[lang='ar'] h1,
+  html[lang='ar'] h2,
+  html[lang='ar'] h3 {
+    line-height: 1.35;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    @apply font-bold tracking-tight text-starlight;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: rgba(232, 185, 92, 0.28);
+    color: var(--starlight);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Scrollbar — kept dark so the page does not flash a light gutter. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #02080f;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #16496e;
+    border-radius: 999px;
+    border: 2px solid #02080f;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1d5c8b;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8 lg:px-12;
+  }
+
+  .section {
+    @apply relative py-20 sm:py-28 lg:py-36;
+  }
+
+  /* Considered glassmorphism: a low-opacity navy pane, a single hairline
+     highlight along the top edge, and a soft inner glow. Deliberately
+     restrained — the blur is 16px, not 40px, so text stays crisp. */
+  .glass {
+    background: linear-gradient(
+      160deg,
+      rgba(14, 51, 82, 0.42) 0%,
+      rgba(6, 27, 45, 0.55) 55%,
+      rgba(2, 14, 26, 0.62) 100%
+    );
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+    border: 1px solid rgba(120, 146, 173, 0.16);
+    box-shadow:
+      inset 0 1px 0 0 rgba(245, 247, 250, 0.07),
+      0 18px 50px -24px rgba(0, 0, 0, 0.85);
+  }
+
+  .glass-strong {
+    background: linear-gradient(
+      160deg,
+      rgba(14, 51, 82, 0.62) 0%,
+      rgba(6, 27, 45, 0.78) 100%
+    );
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    border: 1px solid rgba(120, 146, 173, 0.22);
+  }
+
+  .hairline {
+    @apply h-px w-full;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(120, 146, 173, 0.32),
+      transparent
+    );
+  }
+
+  .text-gradient-star {
+    background: linear-gradient(
+      100deg,
+      #f5f7fa 0%,
+      #f5f7fa 42%,
+      #f2ce84 62%,
+      #e8b95c 78%,
+      #f5f7fa 100%
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[0.7rem] font-bold uppercase tracking-[0.24em] text-gold;
+  }
+
+  html[lang='ar'] .eyebrow {
+    @apply tracking-[0.1em];
+  }
+
+  /* Thin orbital ring used behind the mark and around service nodes. */
+  .orbit-ring {
+    border: 1px solid rgba(120, 146, 173, 0.14);
+    border-radius: 9999px;
+  }
+}
+
+@layer utilities {
+  .glow-gold {
+    box-shadow:
+      0 0 0 1px rgba(232, 185, 92, 0.28),
+      0 0 24px -4px rgba(232, 185, 92, 0.45),
+      0 0 60px -12px rgba(232, 185, 92, 0.3);
+  }
+
+  .glow-blue {
+    box-shadow:
+      0 0 0 1px rgba(42, 118, 174, 0.3),
+      0 0 30px -6px rgba(42, 118, 174, 0.4);
+  }
+
+  .text-glow-gold {
+    text-shadow: 0 0 26px rgba(232, 185, 92, 0.45);
+  }
+
+  /* Fades a scrolling rail out at both ends instead of cutting it hard. */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Logical properties so RTL mirrors without duplicated rules. */
+  .ps-safe {
+    padding-inline-start: 1.25rem;
+  }
+  .border-s-gold {
+    border-inline-start: 2px solid var(--gold);
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Reduced motion
+   Every decorative animation is switched off, the starfield canvas stops
+   painting (handled in JS), and parallax amplitude collapses to zero via
+   the --motion variable. Content remains fully visible: reveal animations
+   fall back to plain opacity 1 rather than staying hidden.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion: 0;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
