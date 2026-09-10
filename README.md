@@ -320,10 +320,83 @@ Install `@netlify/plugin-nextjs`, then:
 npm ci && npm run build && npm start   # listens on $PORT, default 3000
 ```
 
+---
+
+## Connecting luma-jo.com
+
+### How the domain is actually wired
+
+Verified by DNS lookup on 2026-09-10 — worth re-checking before you touch
+anything, but this was the state:
+
+| Layer          | Provider                                                     |
+| -------------- | ------------------------------------------------------------ |
+| Registrar      | GoDaddy                                                       |
+| **DNS**        | **Cloudflare** — `kobe.ns.cloudflare.com`, `mimi.ns.cloudflare.com` |
+| Root + `www`   | Proxied through Cloudflare (`104.21.6.21`, `172.67.134.46`)   |
+| `api.luma-jo.com` | Live, proxied — serves the legacy backend                  |
+| **Email**      | **Microsoft 365** — MX `lumajo-com01b.mail.protection.outlook.com` |
+| SPF            | `v=spf1 include:secureserver.net -all`                        |
+
+**GoDaddy is only the registrar. DNS records are edited in Cloudflare.**
+
+> ### ⚠️ Do not change the nameservers
+>
+> Pointing the nameservers at a host (Vercel, Netlify, anyone) drops every
+> record Cloudflare currently answers — including `MX`. That kills
+> **info@luma-jo.com**, the address published on the contact page, and takes
+> `api.luma-jo.com` down with it. Change only the two records below.
+
+### Cutover
+
+1. **Deploy first, cut over second.** Import the repo at
+   [vercel.com/new](https://vercel.com/new) and let it build. Next.js is
+   detected automatically — no build settings to fill in. You get a
+   `*.vercel.app` URL.
+2. **Check that URL properly** — both languages, the award lightbox, the
+   contact form — while the live site is still untouched.
+3. In Vercel → *Project → Settings → Domains*, add `luma-jo.com` and
+   `www.luma-jo.com`. Vercel then shows the exact DNS records it wants; use
+   what it displays rather than any value memorised from elsewhere.
+4. In **Cloudflare** → *DNS → Records*, change only these two:
+
+   | Type  | Name  | Value                     | Proxy         |
+   | ----- | ----- | ------------------------- | ------------- |
+   | CNAME | `@`   | `cname.vercel-dns.com`    | DNS only (grey) |
+   | CNAME | `www` | `cname.vercel-dns.com`    | DNS only (grey) |
+
+   A `CNAME` at the root is fine here — Cloudflare flattens it automatically,
+   which avoids pinning a Vercel IP that may change later.
+
+   **Leave `api`, `MX`, and every `TXT` record exactly as they are.**
+
+5. Set the two records to **DNS only** (grey cloud). Vercel issues and renews
+   its own certificate; leaving Cloudflare's proxy on in front of it means two
+   CDNs and two certificates in the same request path, which is the usual
+   cause of redirect loops and `525` errors on this pairing. If you do want to
+   keep the orange cloud, Cloudflare's SSL/TLS mode must be **Full (strict)**.
+
+6. Propagation is usually minutes. Verify with:
+
+   ```bash
+   nslookup luma-jo.com 8.8.8.8
+   curl -sI https://luma-jo.com | head -20
+   ```
+
+### Rolling back
+
+Nothing is destroyed by this: the old records' values are the two Cloudflare
+IPs above. Put them back and the previous site returns. Take a screenshot of
+the Cloudflare DNS table before editing, so you have the exact prior state.
+
 ### Before going live
 
 1. Confirm `siteConfig.url` in `src/content/site.config.ts` is the production
-   origin — it drives canonicals, JSON-LD and the sitemap.
+   origin — it drives canonicals, JSON-LD and the sitemap. Currently
+   `https://luma-jo.com`. ✓
 2. Point `contactEndpoint` at a real backend, or leave it empty for the mailto
    hand-off.
 3. Submit `https://luma-jo.com/sitemap.xml` to Search Console.
+4. Spot-check the legacy service redirects, e.g.
+   `luma-jo.com/services/69147e87a31c3aa4f67a4a14` should 301 to
+   `/services/digital-marketing`.
