@@ -168,6 +168,66 @@ export const awards: Award[] = [
     },
   },
   {
+    slug: 'jordanian-contractors',
+    image: 'jordanian-contractors',
+    width: 1024,
+    height: 1024,
+    awardedBy: {
+      en: 'Jordanian Contractors Association',
+      ar: 'نقابة المقاولين الأردنيين',
+    },
+    title: { en: 'Commemorative Shield', ar: 'درع تذكاري' },
+    recipient: {
+      en: 'Presented by Eng. Ahmad Al-Yacoub, Head of the Jordanian Contractors Association',
+      ar: 'مقدَّم من نقيب المقاولين الأردني المهندس أحمد اليعقوب',
+    },
+    alt: {
+      en: 'Cast metal shield on a brass stand, embossed with a wax-seal emblem of the map of Jordan reading "Made in Jordan", presented by the Head of the Jordanian Contractors Association.',
+      ar: 'درع معدني مصبوب على قاعدة نحاسية، منقوش عليه ختم بخريطة الأردن وعبارة «صنع في الأردن»، مقدَّم من نقيب المقاولين الأردني.',
+    },
+  },
+  {
+    slug: 'htu',
+    image: 'htu',
+    width: 1024,
+    height: 1024,
+    awardedBy: {
+      en: 'Al Hussein Technical University',
+      ar: 'جامعة الحسين التقنية',
+    },
+    title: {
+      en: 'E-Commerce Website Competition',
+      ar: 'مسابقة مواقع التجارة الإلكترونية',
+    },
+    recipient: {
+      en: 'Mohammad Aljaouni — for his contribution as a Judge',
+      ar: 'محمد الجاعوني — تقديراً لمساهمته عضواً في لجنة التحكيم',
+    },
+    alt: {
+      en: 'Clear acrylic award on a blue and glass base, presented by Al Hussein Technical University to Mohammad Aljaouni for his contribution as a judge in the E-Commerce Website Competition.',
+      ar: 'درع أكريليك شفاف على قاعدة زجاجية زرقاء، مقدَّم من جامعة الحسين التقنية إلى محمد الجاعوني تقديراً لمساهمته في تحكيم مسابقة مواقع التجارة الإلكترونية.',
+    },
+  },
+  {
+    slug: 'abu-saddam',
+    image: 'abu-saddam',
+    width: 1024,
+    height: 1024,
+    awardedBy: {
+      en: 'Abu Saddam Electricity',
+      ar: 'معرض أبو صدام للأجهزة الكهربائية',
+    },
+    title: { en: 'Shield of Appreciation', ar: 'درع تقدير' },
+    recipient: {
+      en: 'Mohammad Aljaouni',
+      ar: 'محمد الجاعوني',
+    },
+    alt: {
+      en: 'Shield-shaped clear acrylic award engraved in Arabic, presented by Abu Saddam Electricity to LUMA Agency in recognition of its work in digital marketing.',
+      ar: 'درع أكريليك شفاف على شكل درع منقوش بالعربية، مقدَّم من معرض أبو صدام للأجهزة الكهربائية إلى وكالة LUMA تقديراً لجهودها في التسويق الرقمي.',
+    },
+  },
+  {
     slug: 'technical-broker',
     image: 'technical-broker',
     width: 2048,

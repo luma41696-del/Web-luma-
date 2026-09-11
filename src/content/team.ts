@@ -55,7 +55,10 @@ export const team: TeamMember[] = [
   },
   {
     name: 'Omar Al-Saheb',
-    role: { en: 'Graphic Designer', ar: 'مصمّم جرافيك' },
+    role: {
+      en: 'Graphic Designer & Developer',
+      ar: 'مصمّم جرافيك ومطوّر ومبرمج',
+    },
     image: 'omar-alsaheb',
   },
   {

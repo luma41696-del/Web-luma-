@@ -100,7 +100,7 @@ export const stats: Stat[] = [
   },
   {
     key: 'experience',
-    value: 5,
+    value: 7,
     suffix: '+',
     label: { en: 'Years of Experience', ar: 'سنوات خبرة' },
     description: {

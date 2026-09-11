@@ -28,7 +28,6 @@ export function Counter({
   const reducedMotion = usePrefersReducedMotion();
   const [current, setCurrent] = useState(reducedMotion ? value : 0);
   const ref = useRef<HTMLSpanElement>(null);
-  const hasRun = useRef(false);
 
   useEffect(() => {
     if (reducedMotion) {
@@ -39,32 +38,46 @@ export function Counter({
     const element = ref.current;
     if (!element) return;
 
+    // Owned by the effect, not by a ref: everything it starts is torn down in
+    // its own cleanup. An earlier version guarded with a `hasRun` ref and
+    // returned the cancel function from inside the observer callback — but a
+    // callback's return value is discarded, so the frame loop outlived the
+    // component, and the ref meant a re-run could leave the figure frozen
+    // part-way instead of ever reaching `value`.
+    let frame = 0;
+    let cancelled = false;
+
+    const countUp = () => {
+      const start = performance.now();
+
+      const tick = (now: number) => {
+        if (cancelled) return;
+        const progress = Math.min((now - start) / duration, 1);
+        // Ease-out cubic: fast at first, settling gently on the final figure.
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setCurrent(Math.round(eased * value));
+        if (progress < 1) frame = requestAnimationFrame(tick);
+      };
+
+      frame = requestAnimationFrame(tick);
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting || hasRun.current) return;
-        hasRun.current = true;
-
-        const start = performance.now();
-        let frame = 0;
-
-        const tick = (now: number) => {
-          const progress = Math.min((now - start) / duration, 1);
-          // Ease-out cubic: fast at first, settling gently on the final figure.
-          const eased = 1 - Math.pow(1 - progress, 3);
-          setCurrent(Math.round(eased * value));
-          if (progress < 1) frame = requestAnimationFrame(tick);
-        };
-
-        frame = requestAnimationFrame(tick);
+        if (!entry.isIntersecting) return;
         observer.disconnect();
-
-        return () => cancelAnimationFrame(frame);
+        countUp();
       },
       { threshold: 0.4 },
     );
 
     observer.observe(element);
-    return () => observer.disconnect();
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   }, [value, duration, reducedMotion]);
 
   return (
