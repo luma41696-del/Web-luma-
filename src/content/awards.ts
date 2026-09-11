@@ -52,6 +52,27 @@ export const awards: Award[] = [
     },
   },
   {
+    slug: 'jordanian-contractors',
+    image: 'jordanian-contractors',
+    width: 1024,
+    height: 1024,
+    // The engineer is named in `awardedBy` rather than `recipient` so he
+    // appears on the card itself — `recipient` only surfaces in the lightbox.
+    awardedBy: {
+      en: 'Jordanian Contractors Association — Eng. Ahmad Al-Yacoub',
+      ar: 'نقابة المقاولين الأردنيين — المهندس أحمد اليعقوب',
+    },
+    title: { en: 'Commemorative Shield', ar: 'درع تذكاري' },
+    recipient: {
+      en: 'Head of the Jordanian Contractors Association',
+      ar: 'نقيب المقاولين الأردنيين',
+    },
+    alt: {
+      en: 'Cast metal shield on a brass stand, embossed with a wax-seal emblem of the map of Jordan reading "Made in Jordan", presented by the Head of the Jordanian Contractors Association.',
+      ar: 'درع معدني مصبوب على قاعدة نحاسية، منقوش عليه ختم بخريطة الأردن وعبارة «صنع في الأردن»، مقدَّم من نقيب المقاولين الأردني.',
+    },
+  },
+  {
     slug: 'emaar-al-diyafa',
     image: 'emaar-al-diyafa',
     width: 1024,
@@ -99,22 +120,6 @@ export const awards: Award[] = [
     alt: {
       en: 'Curved glass award presented by Smart Solutions to LUMA Agency, recognising contribution to their digital solutions.',
       ar: 'درع زجاجي منحني مقدّم من شركة Smart Solutions إلى وكالة LUMA تقديراً للمساهمة في تطوير حلولها الرقمية.',
-    },
-  },
-  {
-    slug: 'quick-mobile',
-    image: 'quick-mobile',
-    width: 2048,
-    height: 2048,
-    awardedBy: { en: 'Quick Mobile', ar: 'كويك موبايل' },
-    title: { en: 'Appreciation Award', ar: 'جائزة تقدير' },
-    recipient: {
-      en: 'Mohammad Aljaouni, CEO',
-      ar: 'محمد الجاعوني، الرئيس التنفيذي',
-    },
-    alt: {
-      en: 'Octagonal crystal appreciation award on a black patterned base, presented by Quick Mobile to LUMA Agency.',
-      ar: 'جائزة تقدير كريستالية ثمانية الأضلاع على قاعدة سوداء مزخرفة، مقدّمة من كويك موبايل إلى وكالة LUMA.',
     },
   },
   {
@@ -191,24 +196,19 @@ export const awards: Award[] = [
     },
   },
   {
-    slug: 'jordanian-contractors',
-    image: 'jordanian-contractors',
-    width: 1024,
-    height: 1024,
-    // The engineer is named in `awardedBy` rather than `recipient` so he
-    // appears on the card itself — `recipient` only surfaces in the lightbox.
-    awardedBy: {
-      en: 'Jordanian Contractors Association — Eng. Ahmad Al-Yacoub',
-      ar: 'نقابة المقاولين الأردنيين — المهندس أحمد اليعقوب',
-    },
-    title: { en: 'Commemorative Shield', ar: 'درع تذكاري' },
+    slug: 'quick-mobile',
+    image: 'quick-mobile',
+    width: 2048,
+    height: 2048,
+    awardedBy: { en: 'Quick Mobile', ar: 'كويك موبايل' },
+    title: { en: 'Appreciation Award', ar: 'جائزة تقدير' },
     recipient: {
-      en: 'Head of the Jordanian Contractors Association',
-      ar: 'نقيب المقاولين الأردنيين',
+      en: 'Mohammad Aljaouni, CEO',
+      ar: 'محمد الجاعوني، الرئيس التنفيذي',
     },
     alt: {
-      en: 'Cast metal shield on a brass stand, embossed with a wax-seal emblem of the map of Jordan reading "Made in Jordan", presented by the Head of the Jordanian Contractors Association.',
-      ar: 'درع معدني مصبوب على قاعدة نحاسية، منقوش عليه ختم بخريطة الأردن وعبارة «صنع في الأردن»، مقدَّم من نقيب المقاولين الأردني.',
+      en: 'Octagonal crystal appreciation award on a black patterned base, presented by Quick Mobile to LUMA Agency.',
+      ar: 'جائزة تقدير كريستالية ثمانية الأضلاع على قاعدة سوداء مزخرفة، مقدّمة من كويك موبايل إلى وكالة LUMA.',
     },
   },
   {
