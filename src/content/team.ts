@@ -75,7 +75,7 @@ export const team: TeamMember[] = [
     image: 'moammar-awawdeh',
   },
   {
-    name: 'Yasmin Yassin',
+    name: 'Yasmeen Yaseen',
     role: { en: 'Video Editor', ar: 'محرّرة فيديو' },
     image: 'yasmin-yassin',
   },
