@@ -23,6 +23,11 @@ export const team: TeamMember[] = [
     image: 'mohammad-bizo',
   },
   {
+    name: 'Waleed Altiti',
+    role: { en: 'Accountant', ar: 'محاسب' },
+    image: 'waleed-altiti',
+  },
+  {
     name: 'Gazy Amjed Al-khalili',
     role: { en: 'Team Leader', ar: 'قائد فريق' },
     image: 'gazy-amjed-al-khalili',
@@ -60,6 +65,19 @@ export const team: TeamMember[] = [
       ar: 'مصمّم جرافيك ومطوّر ومبرمج',
     },
     image: 'omar-alsaheb',
+  },
+  {
+    name: 'Moammar Awawdeh',
+    role: {
+      en: 'Photographer & Video Editor',
+      ar: 'مصوّر ومحرّر فيديو',
+    },
+    image: 'moammar-awawdeh',
+  },
+  {
+    name: 'Yasmin Yassin',
+    role: { en: 'Video Editor', ar: 'محرّرة فيديو' },
+    image: 'yasmin-yassin',
   },
   {
     name: 'Hashem Hadidi',

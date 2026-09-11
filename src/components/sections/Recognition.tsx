@@ -220,7 +220,11 @@ function AwardCapsule({
               <p className="truncate text-[0.63rem] font-bold uppercase tracking-[0.18em] text-gold">
                 {t('recognition.presentedBy')}
               </p>
-              <h3 className="mt-1.5 text-[0.95rem] font-bold leading-snug text-starlight">
+              {/* Reserves two lines so every plinth in the rail sits at the
+                  same height — most awarding bodies wrap, a few do not. It is
+                  a minimum, not a clamp: a longer name still grows rather
+                  than being cut off. */}
+              <h3 className="mt-1.5 min-h-[2.6em] text-[0.95rem] font-bold leading-snug text-starlight">
                 {pick(award.awardedBy)}
               </h3>
               <p className="mt-1 text-[0.78rem] font-light text-steel-400">

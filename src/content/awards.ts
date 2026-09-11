@@ -172,14 +172,16 @@ export const awards: Award[] = [
     image: 'jordanian-contractors',
     width: 1024,
     height: 1024,
+    // The engineer is named in `awardedBy` rather than `recipient` so he
+    // appears on the card itself — `recipient` only surfaces in the lightbox.
     awardedBy: {
-      en: 'Jordanian Contractors Association',
-      ar: 'نقابة المقاولين الأردنيين',
+      en: 'Jordanian Contractors Association — Eng. Ahmad Al-Yacoub',
+      ar: 'نقابة المقاولين الأردنيين — المهندس أحمد اليعقوب',
     },
     title: { en: 'Commemorative Shield', ar: 'درع تذكاري' },
     recipient: {
-      en: 'Presented by Eng. Ahmad Al-Yacoub, Head of the Jordanian Contractors Association',
-      ar: 'مقدَّم من نقيب المقاولين الأردني المهندس أحمد اليعقوب',
+      en: 'Head of the Jordanian Contractors Association',
+      ar: 'نقيب المقاولين الأردنيين',
     },
     alt: {
       en: 'Cast metal shield on a brass stand, embossed with a wax-seal emblem of the map of Jordan reading "Made in Jordan", presented by the Head of the Jordanian Contractors Association.',
