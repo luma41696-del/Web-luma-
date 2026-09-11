@@ -13,6 +13,29 @@ import type { Award } from './types';
  */
 export const awards: Award[] = [
   {
+    // Opens the rail.
+    slug: 'htu',
+    image: 'htu',
+    width: 1024,
+    height: 1024,
+    awardedBy: {
+      en: 'Al Hussein Technical University',
+      ar: 'جامعة الحسين التقنية',
+    },
+    title: {
+      en: 'E-Commerce Website Competition',
+      ar: 'مسابقة مواقع التجارة الإلكترونية',
+    },
+    recipient: {
+      en: 'Mohammad Aljaouni — for his contribution as a Judge',
+      ar: 'محمد الجاعوني — تقديراً لمساهمته عضواً في لجنة التحكيم',
+    },
+    alt: {
+      en: 'Clear acrylic award on a blue and glass base, presented by Al Hussein Technical University to Mohammad Aljaouni for his contribution as a judge in the E-Commerce Website Competition.',
+      ar: 'درع أكريليك شفاف على قاعدة زجاجية زرقاء، مقدَّم من جامعة الحسين التقنية إلى محمد الجاعوني تقديراً لمساهمته في تحكيم مسابقة مواقع التجارة الإلكترونية.',
+    },
+  },
+  {
     slug: 'high-tech',
     image: 'high-tech',
     width: 2048,
@@ -189,28 +212,25 @@ export const awards: Award[] = [
     },
   },
   {
-    slug: 'htu',
-    image: 'htu',
-    width: 1024,
-    height: 1024,
-    awardedBy: {
-      en: 'Al Hussein Technical University',
-      ar: 'جامعة الحسين التقنية',
-    },
-    title: {
-      en: 'E-Commerce Website Competition',
-      ar: 'مسابقة مواقع التجارة الإلكترونية',
-    },
+    slug: 'technical-broker',
+    image: 'technical-broker',
+    width: 2048,
+    height: 2048,
+    // The plaque is engraved "TECHNICAL BROKER", so the English name follows
+    // the artwork; the Arabic is the company's own Arabic name.
+    awardedBy: { en: 'Technical Broker', ar: 'شركة الوسيط التقني' },
+    title: { en: 'Appreciation Award', ar: 'جائزة تقدير' },
     recipient: {
-      en: 'Mohammad Aljaouni — for his contribution as a Judge',
-      ar: 'محمد الجاعوني — تقديراً لمساهمته عضواً في لجنة التحكيم',
+      en: 'Mohammad Aljaouni — Developer Business',
+      ar: 'محمد الجاعوني — تطوير الأعمال',
     },
     alt: {
-      en: 'Clear acrylic award on a blue and glass base, presented by Al Hussein Technical University to Mohammad Aljaouni for his contribution as a judge in the E-Commerce Website Competition.',
-      ar: 'درع أكريليك شفاف على قاعدة زجاجية زرقاء، مقدَّم من جامعة الحسين التقنية إلى محمد الجاعوني تقديراً لمساهمته في تحكيم مسابقة مواقع التجارة الإلكترونية.',
+      en: 'Crystal appreciation award presented by Technical Broker to LUMA Agency for contribution to business development and digital presence.',
+      ar: 'جائزة تقدير كريستالية مقدّمة من شركة الوسيط التقني إلى وكالة LUMA تقديراً لمساهمتها في تطوير الأعمال والحضور الرقمي.',
     },
   },
   {
+    // Closes the rail.
     slug: 'abu-saddam',
     image: 'abu-saddam',
     width: 1024,
@@ -227,22 +247,6 @@ export const awards: Award[] = [
     alt: {
       en: 'Shield-shaped clear acrylic award engraved in Arabic, presented by Abu Saddam Electricity to LUMA Agency in recognition of its work in digital marketing.',
       ar: 'درع أكريليك شفاف على شكل درع منقوش بالعربية، مقدَّم من معرض أبو صدام للأجهزة الكهربائية إلى وكالة LUMA تقديراً لجهودها في التسويق الرقمي.',
-    },
-  },
-  {
-    slug: 'technical-broker',
-    image: 'technical-broker',
-    width: 2048,
-    height: 2048,
-    awardedBy: { en: 'Technical Broker', ar: 'تكنيكال بروكر' },
-    title: { en: 'Appreciation Award', ar: 'جائزة تقدير' },
-    recipient: {
-      en: 'Mohammad Aljaouni — Developer Business',
-      ar: 'محمد الجاعوني — تطوير الأعمال',
-    },
-    alt: {
-      en: 'Crystal appreciation award presented by Technical Broker to LUMA Agency for contribution to business development and digital presence.',
-      ar: 'جائزة تقدير كريستالية مقدّمة من تكنيكال بروكر إلى وكالة LUMA تقديراً لمساهمتها في تطوير الأعمال والحضور الرقمي.',
     },
   },
 ];
