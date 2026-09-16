@@ -121,7 +121,7 @@ export function Navbar() {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               aria-label={menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
-              className="glass flex h-10 w-10 items-center justify-center rounded-full text-starlight transition-colors hover:border-gold/40 hover:text-gold lg:hidden"
+              className="glass flex h-11 w-11 items-center justify-center rounded-full text-starlight transition-colors hover:border-gold/40 hover:text-gold sm:h-10 sm:w-10 lg:hidden"
             >
               <span className="relative block h-3.5 w-4">
                 <span
@@ -234,7 +234,7 @@ function LanguageToggle({
       onClick={onToggle}
       aria-label={label}
       lang={locale === 'en' ? 'ar' : 'en'}
-      className="glass flex h-10 items-center gap-1.5 rounded-full px-3.5 text-[0.78rem] font-bold text-starlight transition-colors duration-300 hover:border-gold/40 hover:text-gold"
+      className="glass flex h-11 items-center gap-1.5 rounded-full px-3.5 text-[0.78rem] font-bold text-starlight transition-colors duration-300 hover:border-gold/40 hover:text-gold sm:h-10"
     >
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
         <circle cx="12" cy="12" r="9" />

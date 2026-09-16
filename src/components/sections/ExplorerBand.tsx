@@ -115,7 +115,7 @@ export function ExplorerBand() {
             <Reveal delay={0.26}>
               <a
                 href="#recognition"
-                className="group inline-flex items-center gap-2.5 text-[0.78rem] font-bold uppercase tracking-[0.16em] text-gold transition-colors hover:text-gold-400"
+                className="tap-target group inline-flex items-center gap-2.5 text-[0.78rem] font-bold uppercase tracking-[0.16em] text-gold transition-colors hover:text-gold-400"
               >
                 {t('common.viewAll')}
                 <svg

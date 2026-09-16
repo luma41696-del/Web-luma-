@@ -277,7 +277,7 @@ function RailButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="glass flex h-10 w-10 items-center justify-center rounded-full text-starlight transition-all duration-300 hover:border-gold/45 hover:text-gold disabled:pointer-events-none disabled:opacity-30"
+      className="glass flex h-11 w-11 items-center justify-center rounded-full text-starlight transition-all duration-300 hover:border-gold/45 hover:text-gold disabled:pointer-events-none disabled:opacity-30 sm:h-10 sm:w-10"
     >
       <svg
         viewBox="0 0 24 24"

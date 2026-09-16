@@ -183,7 +183,7 @@ export function ContactSection() {
                       defaultValue=""
                       aria-invalid={Boolean(errors.service)}
                       aria-describedby={errors.service ? 'service-error' : undefined}
-                      className={`w-full appearance-none rounded-xl border bg-space-800/70 px-4 py-3.5 pe-11 text-[0.92rem] text-starlight outline-none transition-colors duration-300 focus:border-gold/60 ${
+                      className={`w-full appearance-none rounded-xl border bg-space-800/70 px-4 py-3.5 pe-11 text-base text-starlight outline-none transition-colors duration-300 focus:border-gold/60 sm:text-[0.92rem] ${
                         errors.service ? 'border-red-400/70' : 'border-white/10'
                       }`}
                     >
@@ -223,7 +223,7 @@ export function ContactSection() {
                     placeholder={t('contact.placeholders.message')}
                     aria-invalid={Boolean(errors.message)}
                     aria-describedby={errors.message ? 'message-error' : undefined}
-                    className={`w-full resize-y rounded-xl border bg-space-800/70 px-4 py-3.5 text-[0.92rem] text-starlight outline-none transition-colors duration-300 placeholder:text-steel-600 focus:border-gold/60 ${
+                    className={`w-full resize-y rounded-xl border bg-space-800/70 px-4 py-3.5 text-base text-starlight outline-none transition-colors duration-300 placeholder:text-steel-600 focus:border-gold/60 sm:text-[0.92rem] ${
                       errors.message ? 'border-red-400/70' : 'border-white/10'
                     }`}
                   />
@@ -309,7 +309,7 @@ export function ContactSection() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`${profile.platform} — ${profile.handle}`}
-                          className="glass flex h-10 w-10 items-center justify-center rounded-full text-steel-300 transition-colors duration-300 hover:border-gold/40 hover:text-gold"
+                          className="glass flex h-11 w-11 items-center justify-center rounded-full text-steel-300 transition-colors duration-300 hover:border-gold/40 hover:text-gold sm:h-10 sm:w-10"
                         >
                           <UtilityIcon
                             name={profile.platform.toLowerCase() as 'linkedin' | 'instagram'}
@@ -422,7 +422,10 @@ function Field({
         autoComplete={autoComplete}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${name}-error` : undefined}
-        className={`w-full rounded-xl border bg-space-800/70 px-4 py-3.5 text-[0.92rem] text-starlight outline-none transition-colors duration-300 placeholder:text-steel-600 focus:border-gold/60 ${
+        // 16px on phones is deliberate: iOS Safari zooms the whole page in
+        // when a focused field is smaller than that, and the visitor has to
+        // pinch back out. From `sm` up it returns to the design size.
+        className={`w-full rounded-xl border bg-space-800/70 px-4 py-3.5 text-base text-starlight outline-none transition-colors duration-300 placeholder:text-steel-600 focus:border-gold/60 sm:text-[0.92rem] ${
           error ? 'border-red-400/70' : 'border-white/10'
         }`}
       />

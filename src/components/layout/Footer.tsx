@@ -67,7 +67,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${profile.platform} — ${profile.handle}`}
-                    className="glass flex h-10 w-10 items-center justify-center rounded-full text-steel-300 transition-colors duration-300 hover:border-gold/40 hover:text-gold"
+                    className="glass flex h-11 w-11 items-center justify-center rounded-full text-steel-300 transition-colors duration-300 hover:border-gold/40 hover:text-gold sm:h-10 sm:w-10"
                   >
                     <UtilityIcon
                       name={
@@ -102,7 +102,7 @@ export function Footer() {
               <a
                 href={links.tel}
                 dir="ltr"
-                className="group flex items-center gap-2.5 text-sm text-steel-400 transition-colors hover:text-gold"
+                className="tap-target group flex items-center gap-2.5 text-sm text-steel-400 transition-colors hover:text-gold"
               >
                 <UtilityIcon name="phone" size={15} className="shrink-0 text-steel-500 transition-colors group-hover:text-gold" />
                 {siteConfig.contact.phoneDisplay}
@@ -111,7 +111,7 @@ export function Footer() {
             <li>
               <a
                 href={links.mail}
-                className="group flex items-center gap-2.5 break-all text-sm text-steel-400 transition-colors hover:text-gold"
+                className="tap-target group flex items-center gap-2.5 break-all text-sm text-steel-400 transition-colors hover:text-gold"
               >
                 <UtilityIcon name="mail" size={15} className="shrink-0 text-steel-500 transition-colors group-hover:text-gold" />
                 {siteConfig.contact.email}
@@ -122,7 +122,7 @@ export function Footer() {
                 href={links.whatsapp()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-2.5 text-sm text-steel-400 transition-colors hover:text-gold"
+                className="tap-target group flex items-center gap-2.5 text-sm text-steel-400 transition-colors hover:text-gold"
               >
                 <UtilityIcon name="whatsapp" size={15} className="shrink-0 text-steel-500 transition-colors group-hover:text-gold" />
                 {t('contact.whatsapp')}
@@ -146,7 +146,7 @@ export function Footer() {
 
           <a
             href="#main"
-            className="group flex items-center gap-2 text-xs text-steel-500 transition-colors hover:text-gold"
+            className="tap-target group flex items-center gap-2 text-xs text-steel-500 transition-colors hover:text-gold"
           >
             {t('footer.backToTop')}
             <svg
@@ -198,7 +198,7 @@ function FooterLink({
     <li>
       <Link
         href={href}
-        className="group inline-flex items-center gap-2 text-sm text-steel-400 transition-colors duration-300 hover:text-gold"
+        className="tap-target group inline-flex items-center gap-2 text-sm text-steel-400 transition-colors duration-300 hover:text-gold"
       >
         <span className="h-px w-0 bg-gold transition-all duration-300 group-hover:w-3" />
         {children}

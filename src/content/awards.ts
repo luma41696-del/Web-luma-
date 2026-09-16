@@ -212,6 +212,23 @@ export const awards: Award[] = [
     },
   },
   {
+    // Placed here so the positions you fixed stay fixed: HTU first, the
+    // contractors shield 3rd, Quick Mobile 11th, Abu Saddam last.
+    slug: 'nsg',
+    image: 'nsg',
+    width: 1024,
+    height: 1024,
+    awardedBy: {
+      en: 'Neo Space Group (NSG)',
+      ar: 'مجموعة نيو للفضاء (NSG)',
+    },
+    title: { en: 'Commemorative Shield', ar: 'درع تذكاري' },
+    alt: {
+      en: 'Black acrylic award topped with a frosted relief map of Saudi Arabia, the Neo Space Group logo etched on its face, standing on a white base.',
+      ar: 'درع أكريليك أسود تعلوه خريطة مجسّمة للمملكة العربية السعودية بلون مصنفر، ومحفور على واجهته شعار مجموعة نيو للفضاء، على قاعدة بيضاء.',
+    },
+  },
+  {
     slug: 'technical-broker',
     image: 'technical-broker',
     width: 2048,

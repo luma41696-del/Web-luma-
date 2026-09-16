@@ -278,6 +278,18 @@
     display: none;
   }
 
+  /* Grows a small text link into a comfortable finger target — but only on
+     touch devices, so the desktop layout keeps its tighter rhythm. A line of
+     14px text is barely 20px tall, under even the 24px WCAG minimum; a mouse
+     hits that fine, a thumb does not. */
+  @media (pointer: coarse) {
+    .tap-target {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
   /* Logical properties so RTL mirrors without duplicated rules. */
   .ps-safe {
     padding-inline-start: 1.25rem;
