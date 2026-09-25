@@ -8,7 +8,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Preloader } from '@/components/layout/Preloader';
 import { CustomCursor } from '@/components/layout/CustomCursor';
 import { siteConfig } from '@/content/site.config';
-import { services } from '@/content/services';
+import { baseKeywords, jsonLd, organizationGraph } from '@/lib/seo';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -17,29 +17,17 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name.en}`,
   },
   description: siteConfig.description.en,
-  keywords: [
-    'digital marketing',
-    'business development',
-    'automation',
-    'AI solutions',
-    'content creation',
-    'studio production',
-    'IT solutions',
-    'software development',
-    'web development',
-    'creative agency',
-    'Amman',
-    'Jordan',
-    'وكالة إبداعية',
-    'التسويق الرقمي',
-    'عمان',
-  ],
+  keywords: baseKeywords,
   authors: [{ name: siteConfig.name.en, url: siteConfig.url }],
   creator: siteConfig.name.en,
   publisher: siteConfig.legalName,
   applicationName: siteConfig.name.en,
   alternates: {
     canonical: '/',
+    // Both languages share one URL (the switch is client-side), so every
+    // locale resolves to the same canonical. If the site ever moves to /ar
+    // routes, this is the block that changes.
+    languages: { en: '/', ar: '/', 'x-default': '/' },
   },
   openGraph: {
     type: 'website',
@@ -51,9 +39,9 @@ export const metadata: Metadata = {
     alternateLocale: ['ar_JO'],
     images: [
       {
-        url: '/logo/app-icon.png',
-        width: 1024,
-        height: 1024,
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
         alt: `${siteConfig.name.en} — ${siteConfig.tagline.en}`,
       },
     ],
@@ -62,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${siteConfig.name.en} — ${siteConfig.tagline.en}`,
     description: siteConfig.tagline.en,
-    images: ['/logo/app-icon.png'],
+    images: ['/opengraph-image'],
   },
   icons: {
     icon: [
@@ -77,6 +65,21 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
   category: 'business',
+
+  // Emitted only once a token is set in site.config.ts, so the head never
+  // carries an empty verification tag.
+  ...(siteConfig.verification.google || siteConfig.verification.bing
+    ? {
+        verification: {
+          ...(siteConfig.verification.google
+            ? { google: siteConfig.verification.google }
+            : {}),
+          ...(siteConfig.verification.bing
+            ? { other: { 'msvalidate.01': siteConfig.verification.bing } }
+            : {}),
+        },
+      }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -92,95 +95,6 @@ export const viewport: Viewport = {
  * and dependency-free.
  */
 const LANG_BOOTSTRAP = `(function(){try{var l=localStorage.getItem('luma-language');if(l!=='en'&&l!=='ar')return;var d=document.documentElement;d.lang=l;d.dir=l==='ar'?'rtl':'ltr';}catch(e){}})();`;
-
-/** Organization + LocalBusiness structured data, built from the config. */
-function structuredData() {
-  const organization = {
-    '@type': 'Organization',
-    '@id': `${siteConfig.url}/#organization`,
-    name: siteConfig.name.en,
-    legalName: siteConfig.legalName,
-    alternateName: siteConfig.name.ar,
-    url: siteConfig.url,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${siteConfig.url}/logo/app-icon.png`,
-      width: 1024,
-      height: 1024,
-    },
-    description: siteConfig.description.en,
-    slogan: siteConfig.tagline.en,
-    foundingDate: String(siteConfig.foundedYear),
-    email: siteConfig.contact.email,
-    telephone: siteConfig.contact.phoneE164,
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: siteConfig.location.city.en,
-      addressCountry: siteConfig.location.countryCode,
-    },
-    sameAs: siteConfig.social.map((profile) => profile.url),
-    contactPoint: [
-      {
-        '@type': 'ContactPoint',
-        telephone: siteConfig.contact.phoneE164,
-        email: siteConfig.contact.email,
-        contactType: 'customer service',
-        areaServed: siteConfig.location.countryCode,
-        availableLanguage: ['en', 'ar'],
-      },
-    ],
-  };
-
-  const localBusiness = {
-    '@type': 'ProfessionalService',
-    '@id': `${siteConfig.url}/#localbusiness`,
-    name: siteConfig.name.en,
-    image: `${siteConfig.url}/logo/app-icon.png`,
-    url: siteConfig.url,
-    telephone: siteConfig.contact.phoneE164,
-    email: siteConfig.contact.email,
-    priceRange: '$$',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: siteConfig.location.city.en,
-      addressCountry: siteConfig.location.countryCode,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: siteConfig.location.geo.lat,
-      longitude: siteConfig.location.geo.lng,
-    },
-    areaServed: { '@type': 'Country', name: siteConfig.location.country.en },
-    parentOrganization: { '@id': `${siteConfig.url}/#organization` },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Services',
-      itemListElement: services.map((service) => ({
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: service.title.en,
-          description: service.summary.en,
-          url: `${siteConfig.url}/services/${service.slug}`,
-        },
-      })),
-    },
-  };
-
-  const website = {
-    '@type': 'WebSite',
-    '@id': `${siteConfig.url}/#website`,
-    url: siteConfig.url,
-    name: siteConfig.name.en,
-    inLanguage: ['en', 'ar'],
-    publisher: { '@id': `${siteConfig.url}/#organization` },
-  };
-
-  return {
-    '@context': 'https://schema.org',
-    '@graph': [organization, localBusiness, website],
-  };
-}
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -203,7 +117,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData()) }}
+          dangerouslySetInnerHTML={jsonLd(organizationGraph())}
         />
       </head>
       <body>

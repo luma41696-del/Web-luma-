@@ -16,6 +16,7 @@ export const dictionary = {
       services: 'Services',
       portfolio: 'Portfolio',
       recognition: 'Recognition',
+      blog: 'Blog',
       contact: 'Contact',
       getStarted: 'Get Started',
       menu: 'Menu',
@@ -153,6 +154,12 @@ export const dictionary = {
         message: 'Tell us about your project…',
       },
     },
+    blog: {
+      title: 'Insights',
+      subtitle:
+        'Practical writing on marketing, technology and production for businesses in Jordan.',
+      allPosts: 'All posts',
+    },
     footer: {
       tagline: 'Where Light Leads Innovation',
       description:
@@ -196,6 +203,7 @@ export const dictionary = {
       services: 'الخدمات',
       portfolio: 'أعمالنا',
       recognition: 'التقدير',
+      blog: 'المدوّنة',
       contact: 'اتصل بنا',
       getStarted: 'ابدأ الآن',
       menu: 'القائمة',
@@ -328,6 +336,12 @@ export const dictionary = {
         phone: '‎+962 7X XXX XXXX',
         message: 'أخبرنا عن مشروعك…',
       },
+    },
+    blog: {
+      title: 'رؤى',
+      subtitle:
+        'مقالات عملية في التسويق والتقنية والإنتاج للشركات في الأردن.',
+      allPosts: 'كل المقالات',
     },
     footer: {
       tagline: 'حيث يقود الضوء الابتكار',

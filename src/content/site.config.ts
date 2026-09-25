@@ -89,6 +89,31 @@ export const siteConfig = {
    * See README → "Contact form".
    */
   contactEndpoint: '',
+
+  /**
+   * Search-engine ownership verification.
+   *
+   * Paste the token from the provider's "HTML tag" method — just the
+   * `content="…"` value, not the whole tag. Empty strings are skipped, so
+   * no empty meta tags are emitted.
+   *
+   * Google:  Search Console → Add property → HTML tag
+   * Bing:    Webmaster Tools → Add site → Option 1 (meta tag)
+   */
+  verification: {
+    google: '',
+    bing: '',
+  },
+
+  /**
+   * Google Business Profile listing, once it exists. Feeding the real URL
+   * here adds it to the LocalBusiness `sameAs`, which is how Google links
+   * the site to the listing — and the listing is where customer reviews can
+   * legitimately earn stars in search results. Self-published testimonials
+   * cannot: Google disallows self-serving review markup on Organization and
+   * LocalBusiness, so the site deliberately ships none.
+   */
+  googleBusinessProfile: '',
 } as const;
 
 export type SiteConfig = typeof siteConfig;

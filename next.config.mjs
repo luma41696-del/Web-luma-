@@ -1,7 +1,18 @@
 /** @type {import('next').NextConfig} */
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+
+  // A stray package-lock.json in the user's home directory made Next infer
+  // C:\Users\Dell as the workspace root, which would have traced the wrong
+  // file set into a serverless deployment. Pin it to this project.
+  outputFileTracingRoot: projectRoot,
 
   // Hides the floating Next.js dev-tools badge in the corner during `npm run
   // dev`. It never appears in a production build either way — this just keeps
@@ -28,11 +39,45 @@ const nextConfig = {
       '69147eeda31c3aa4f67a4a18': 'automation-ai',
     };
 
-    return Object.entries(legacyServiceIds).map(([id, slug]) => ({
-      source: `/services/${id}`,
-      destination: `/services/${slug}`,
-      permanent: true,
-    }));
+    /**
+     * Keyword aliases.
+     *
+     * People search — and link — using terms that do not match LUMA's five
+     * service names one-to-one: "web development", "social media", "branding",
+     * "AI solutions". Rather than invent services the agency does not sell,
+     * each of those URLs 301s to the real service that covers it, so the
+     * keyword URL resolves and passes its equity to a page with true content.
+     */
+    const keywordAliases = {
+      'web-development': 'it-software-development',
+      'website-development': 'it-software-development',
+      'software-development': 'it-software-development',
+      'mobile-apps': 'it-software-development',
+      'social-media': 'digital-marketing',
+      'social-media-management': 'digital-marketing',
+      seo: 'digital-marketing',
+      marketing: 'digital-marketing',
+      branding: 'content-production',
+      'content-creation': 'content-production',
+      'video-production': 'content-production',
+      photography: 'content-production',
+      'ai-solutions': 'automation-ai',
+      automation: 'automation-ai',
+      consulting: 'business-development',
+    };
+
+    return [
+      ...Object.entries(legacyServiceIds).map(([id, slug]) => ({
+        source: `/services/${id}`,
+        destination: `/services/${slug}`,
+        permanent: true,
+      })),
+      ...Object.entries(keywordAliases).map(([alias, slug]) => ({
+        source: `/services/${alias}`,
+        destination: `/services/${slug}`,
+        permanent: true,
+      })),
+    ];
   },
 
   async headers() {
