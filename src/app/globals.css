@@ -232,6 +232,40 @@
     border: 1px solid rgba(120, 146, 173, 0.14);
     border-radius: 9999px;
   }
+
+  /* Scrim over the scroll-driven background video.
+     Three layers, each with a job:
+       · an even navy wash, so body copy keeps its contrast wherever the
+         footage happens to be bright;
+       · a vertical grade, heavier under the fixed navbar and the footer;
+       · a soft vignette, pulling the eye to the centre and hiding the
+         frame edges on very wide screens.
+     It is tuned against the brand palette, not pure black, so the video
+     reads as "LUMA navy" rather than as darkened footage. */
+  .scroll-video-scrim {
+    background:
+      radial-gradient(
+        130% 95% at 50% 45%,
+        rgba(2, 14, 26, 0) 40%,
+        rgba(2, 14, 26, 0.55) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(2, 14, 26, 0.66) 0%,
+        rgba(2, 14, 26, 0.5) 18%,
+        rgba(2, 14, 26, 0.5) 72%,
+        rgba(2, 14, 26, 0.74) 100%
+      );
+  }
+}
+
+/* With the footage behind everything, the per-section canvas starfields
+   would double up the stars. They stay — their pointer parallax adds depth
+   the video cannot — but recede to a supporting role. Keyed on the stage
+   being in the server-rendered HTML, so it holds from the first paint, with
+   no script and no visible dimming after load. */
+body:has(> .scroll-video-stage) canvas.starfield-layer {
+  opacity: 0.4;
 }
 
 @layer utilities {

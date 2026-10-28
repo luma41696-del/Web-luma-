@@ -7,7 +7,9 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Preloader } from '@/components/layout/Preloader';
 import { CustomCursor } from '@/components/layout/CustomCursor';
+import { ScrollVideoBackground } from '@/components/space/ScrollVideoBackground';
 import { siteConfig } from '@/content/site.config';
+import scrollVideoManifest from '@/content/scroll-video.generated.json';
 import { baseKeywords, jsonLd, organizationGraph } from '@/lib/seo';
 
 export const metadata: Metadata = {
@@ -90,6 +92,17 @@ export const viewport: Viewport = {
 };
 
 /**
+ * Written by `npm run encode:video`. Until a video has been encoded both
+ * sources are null and the background stays exactly as it was — the feature
+ * is inert, not broken, when the asset is absent.
+ */
+type ScrollVideoSource = { src: string; poster: string; width: number; height: number };
+const scrollVideo = scrollVideoManifest as unknown as {
+  desktop: ScrollVideoSource | null;
+  mobile: ScrollVideoSource | null;
+};
+
+/**
  * Applies the stored language to <html> before first paint, so an Arabic
  * visitor never sees a flash of left-to-right English. Kept deliberately tiny
  * and dependency-free.
@@ -121,6 +134,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body>
+        {scrollVideo.desktop && scrollVideo.mobile && (
+          <ScrollVideoBackground
+            desktop={scrollVideo.desktop}
+            mobile={scrollVideo.mobile}
+          />
+        )}
         <LanguageProvider>
           <Preloader />
           <CustomCursor />

@@ -154,6 +154,7 @@ them any time.
 npm run optimize:images   # award plaques + team portraits → WebP/AVIF
 npm run cutout:space      # space renders → transparent WebP
 npm run build:fonts       # DIN Next Arabic TTF → WOFF2
+npm run encode:video      # space-journey master → scroll-scrubbable MP4s
 ```
 
 | Pipeline | In                                | Out                                    | Saving          |
@@ -161,6 +162,7 @@ npm run build:fonts       # DIN Next Arabic TTF → WOFF2
 | Images   | `assets-src/{awards,team}/*`      | `public/images/{awards,team}/*.webp\|avif` | 25 MB → 2.3 MB  |
 | Space    | `assets-src/space/*.png`          | `public/images/space/*.webp`           | 16 MB → 0.5 MB  |
 | Fonts    | `public/fonts/*.ttf`              | `public/fonts/*.woff2`                 | 637 KB → 199 KB |
+| Video    | `assets-src/video/space-journey*.mp4` | `public/videos/*.<hash>.{mp4,webp}` | 1080p master → 720p + 540×960 cuts |
 
 **Masters never ship.** Everything under `assets-src/` (~40 MB of 2048²
 originals) stays out of `public/`, so the deployed asset payload is **4.4 MB**
@@ -181,6 +183,28 @@ luminance key punches holes straight through it. See
 company's logo and a full Arabic citation; they are only re-encoded and
 resized, and the lightbox shows them whole on a light stage so the engraved
 text keeps the contrast it was designed for.
+
+**Scroll-driven background video.** An optional flight through space sits
+behind every page, positioned by the scroll bar rather than played: the top of
+the page is its first frame, the bottom its last, and scrolling up flies it in
+reverse. It is **off until a video exists** — the manifest
+`src/content/scroll-video.generated.json` ships with null sources and the
+background stays exactly as designed. How to generate the footage (prompts,
+reference images, Seedance settings) is in
+[`assets-src/video/PROMPTS.md`](assets-src/video/PROMPTS.md); then:
+
+```bash
+# save the master as assets-src/video/space-journey.mp4, then
+npm run encode:video
+```
+
+The script re-encodes for scrubbing — a keyframe every 8 frames and no
+B-frames, so any seek is a few cheap decodes — at 1280×720 and 540×960 (phones
+get the centre of the frame, or a dedicated `space-journey-portrait.mp4` if
+one is present). Outputs are content-hashed and served `immutable`. On the
+page, the first frame paints from plain HTML; the video itself mounts only when
+the browser is idle, and never at all under `prefers-reduced-motion`, Data
+Saver or a 2G connection, where the first frame stays as a still.
 
 ---
 
@@ -226,15 +250,18 @@ Any non-2xx response surfaces the localised error state.
 - **`prefers-reduced-motion` is honoured everywhere**: the starfield paints a
   single static frame instead of animating, parallax and 3D tilt detach their
   listeners entirely, counters print their final value, the preloader is
-  skipped, and reveal animations resolve to plain visible content — never to
-  content stuck at `opacity: 0`
+  skipped, the scroll-driven background video is never downloaded (its first
+  frame stands in as a still), and reveal animations resolve to plain visible
+  content — never to content stuck at `opacity: 0`
 
 ## Performance
 
 - ~103 kB shared JS; every route is statically prerendered
 - The starfield is one `<canvas>` with a single rAF loop that stops when the
-  section scrolls out of view or the tab is hidden — no background video, no
-  thousands of DOM nodes
+  section scrolls out of view or the tab is hidden — no thousands of DOM nodes
+- The optional background video costs nothing at first paint: its first frame
+  paints from the HTML as a small WebP, and the video itself loads only once
+  the browser is idle (see *Asset pipelines*)
 - Images lazy-load below the fold; the hero render is eager
 - Fonts preloaded and `font-display: swap`
 
@@ -265,15 +292,18 @@ web/
 ├─ assets-src/              masters — consumed by scripts, never deployed
 │  ├─ awards/               10 plaque photographs (2048²)
 │  ├─ team/                 13 portraits
-│  └─ space/                spaceship + astronaut renders on white
+│  ├─ space/                spaceship + astronaut renders on white
+│  └─ video/                PROMPTS.md + space-journey master (git-ignored)
 ├─ public/
 │  ├─ fonts/                DIN Next Arabic (.ttf sources + .woff2 shipped)
 │  ├─ logo/                 LUMA marks — used as delivered, never redrawn
+│  ├─ videos/               scroll-video cuts, once encoded (content-hashed)
 │  └─ images/
 │     ├─ awards/            WebP/AVIF derivatives (card + lightbox)
 │     ├─ team/              WebP portraits (320 / 640)
 │     └─ space/             cut-out spaceship + astronaut WebP
-├─ scripts/                 optimize-images · cutout-space · build-fonts
+├─ scripts/                 optimize-images · cutout-space · build-fonts ·
+│                           encode-scroll-video
 └─ src/
    ├─ app/                  routes, layout, sitemap, robots, 404
    ├─ components/

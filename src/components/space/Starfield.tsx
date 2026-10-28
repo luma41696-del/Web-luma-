@@ -25,9 +25,11 @@ interface StarfieldProps {
 /**
  * Canvas starfield.
  *
- * Chosen over a background video (which the brief rules out) and over
- * thousands of DOM nodes. Costs one canvas, one rAF loop, and roughly
- * 200–450 stars depending on viewport size.
+ * Chosen over thousands of DOM nodes. Costs one canvas, one rAF loop, and
+ * roughly 200–450 stars depending on viewport size. When the scroll-driven
+ * space footage sits behind the page (ScrollVideoBackground), the fields stay
+ * for the pointer parallax the footage cannot give, but dim to a supporting
+ * role — see `starfield-layer` in globals.css.
  *
  * Three depth layers give the sky real parallax: distant stars barely move,
  * near ones track the pointer and the scroll. A small proportion are warm
@@ -210,7 +212,7 @@ export function Starfield({
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
+      className={`starfield-layer pointer-events-none absolute inset-0 h-full w-full ${className}`}
     />
   );
 }

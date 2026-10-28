@@ -36,3 +36,10 @@ yarn-error.log*
 # NOTE: assets-src/ is intentionally committed. It holds the 2048² master
 # renders that scripts/cutout-space.mjs consumes. They are not deployed —
 # only the cut-out WebP results in public/images/space/ ship.
+#
+# Video masters are the exception: a 1080p generation runs to tens of MB and
+# every replacement would stay in git history for good. The encoded cuts in
+# public/videos/ are what ships, and they are committed; the master stays in
+# the Magnific library it was generated in (see assets-src/video/PROMPTS.md).
+/assets-src/video/*.mp4
+/assets-src/video/*.mov

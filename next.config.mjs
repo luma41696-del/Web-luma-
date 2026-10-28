@@ -103,6 +103,15 @@ const nextConfig = {
           },
         ],
       },
+      {
+        // Unlike /images, these ARE content-hashed: scripts/encode-scroll-video.mjs
+        // names each cut after a hash of its bytes, so a re-encode ships under
+        // new filenames and a year-long immutable cache can never go stale.
+        source: '/videos/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
     ];
   },
 };
